@@ -48,7 +48,8 @@ class alu_driver;
 
   task start();
  begin
-    repeat(1) @(vif.drv_cb);
+    repeat(2) @(vif.drv_cb);
+    $display("driver after enter [%0t] ",$time);
     for(int i=0;i<`no_of_transactions;i++)
       begin
         m_gd.get(t2);
@@ -78,7 +79,7 @@ class alu_driver;
            t2.OPB.rand_mode(0);
         for (int j = 0; j < 16; j++) begin
           t2.randomize();
-        repeat(1) @(vif.drv_cb);
+        repeat(2) @(vif.drv_cb);
           vif.drv_cb.INP_VALID<=t2.INP_VALID;
           vif.drv_cb.CE<=t2.CE;
           vif.drv_cb.CIN<=t2.CIN;
@@ -104,7 +105,7 @@ class alu_driver;
    // end
 
    else  if(t2.INP_VALID==2'b11 )begin
-          repeat(1) @(vif.drv_cb);
+          repeat(2) @(vif.drv_cb);
           vif.drv_cb.INP_VALID<=t2.INP_VALID;
           vif.drv_cb.CE<=t2.CE;
           vif.drv_cb.CIN<=t2.CIN;
